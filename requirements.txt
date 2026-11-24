@@ -1,0 +1,22 @@
+# Direct dependencies, at the versions used for every number reported in the paper:
+# Python 3.13, NVIDIA driver with CUDA 12.9, one A100-SXM4-80GB.
+# vLLM >= 0.24 is required (first release with the `custom_class` speculative method).
+#
+#   pip install -r requirements.txt
+#
+# pip resolves the remaining (transitive) packages itself. To reproduce the paper's
+# environment exactly, install requirements-lock.txt instead.
+#
+--extra-index-url https://download.pytorch.org/whl/cu129
+torch==2.11.0+cu129
+vllm @ https://github.com/vllm-project/vllm/releases/download/v0.24.0/vllm-0.24.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl
+transformers==5.12.1
+numpy==2.4.6
+numba==0.65.0
+pyyaml==6.0.3
+# `vllm bench serve --dataset-name custom` reads the prompts with pandas, which is only
+# an optional vLLM dependency (the `bench` extra).
+pandas==3.0.3
+
+# Optional, only for data_prep/detokenize_falko_merlin.py (provenance; not needed to benchmark):
+# sacremoses==0.1.1

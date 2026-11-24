@@ -1,0 +1,33 @@
+# The three datasets reported in the paper (see data/README.md). `data_file` is the
+# evaluation split; `benchmark_file` is the same examples with the training-time
+# instruction prefix baked into `source`, built by data_prep/prepare_benchmark_prompts.py.
+# ua_gec and falko_merlin ship with this repository; writeandimprove2024 ships as essay
+# IDs only and must first be rebuilt with data_prep/rebuild_writeandimprove2024.py.
+
+datasets:
+  ua_gec:
+    language: uk
+    path: data/ua_gec
+    data_file: dev_resplit_1000.json
+    train_file: train_resplit.json
+    benchmark_file: dev_resplit_1000_prompted.json
+    split: dev
+    label: "UA-GEC"
+
+  falko_merlin:
+    language: de
+    path: data/falko_merlin
+    data_file: dev_resplit_1000.json
+    train_file: train_resplit.json
+    benchmark_file: dev_resplit_1000_prompted.json
+    split: dev
+    label: "Falko-MERLIN"
+
+  writeandimprove2024:
+    language: en
+    path: data/writeandimprove2024
+    data_file: dev_resplit_1000.json
+    train_file: train_resplit.json
+    benchmark_file: dev_resplit_1000_prompted.json
+    split: dev
+    label: "Write & Improve 2024"

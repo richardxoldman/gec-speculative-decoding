@@ -1,0 +1,26 @@
+Write & Improve Corpus 2024 -- text not included
+
+The Write & Improve Corpus 2024 (Cambridge University Press & Assessment; Diane Nicholls,
+Andrew Caines, Paula Buttery) is distributed under its own licence agreement and may not
+be redistributed. This folder therefore contains only the essay IDs of the splits used
+in the paper:
+
+  train_resplit_ids.json      400 essays (finetuning set)
+  dev_resplit_1000_ids.json  1000 essays (evaluation set)
+
+Each entry is {"id": <MultiGEC-2025 essay_id>, "multigec_split": "train" | "dev"}, in
+split order.
+
+To use these splits:
+
+  1. Obtain the MultiGEC-2025 dataset (https://lt3.ugent.be/resources/multigec-dataset)
+     and the Write & Improve 2024 subset, agreeing to their licence terms.
+  2. From the repository root, run
+
+       python data_prep/rebuild_writeandimprove2024.py \
+           --multigec-dir /path/to/multigec-2025/english/writeandimprove2024
+
+     which writes train_resplit.json and dev_resplit_1000.json into this folder,
+     byte-identical to the files used in the paper.
+
+Do not commit the rebuilt files; .gitignore excludes them.

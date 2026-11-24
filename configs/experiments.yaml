@@ -1,0 +1,33 @@
+# Sweep configuration for the paper's serving benchmarks. These are the values
+# actually used for every reported number (sbatch/submit_full_sweep.sh passes
+# the per-job K / min_ngram values explicitly).
+
+sd_methods:
+  autoregressive:
+    type: none
+    label: "Autoregressive"
+
+  ngram:
+    type: ngram                  # vLLM's built-in CPU n-gram proposer
+    ngram_prompt_lookup_min: 2   # swept over {1, 2, 3} in the paper
+    ngram_prompt_lookup_max: 5
+    label: "N-gram SD"
+
+  pa:
+    type: custom_class           # gec_pa_ngram.PANgramProposer
+    label: "PANgram"
+
+  sad:
+    type: custom_class           # gec_sad_ngram.SADProposer
+    label: "AD"
+
+  standard_sd:
+    type: draft_model            # Qwen3-8B target + Qwen3-0.6B draft
+    label: "Standard SD"
+
+benchmark:
+  batch_sizes: [1, 4, 16, 64, 128]      # client-side concurrency levels
+  num_speculative_tokens: [5, 10, 20, 30]
+  min_ngram: [1, 2, 3]                  # ngram / PANgram only; AD has no such knob
+  num_runs: 2
+  warmup_requests: 128

@@ -1,0 +1,29 @@
+# The two target models reported in the paper (see MODELS.md).
+#   hf_id:            base model that was GEC-finetuned
+#   checkpoint:       the finetuned checkpoint that is served and benchmarked; also the
+#                     default --served-model-name of benchmarking/benchmark_serving.py
+#   draft_checkpoint: finetuned draft model, only used by the draft-model (standard SD)
+#                     baseline for Qwen3-8B -- the n-gram-family methods (N-gram SD,
+#                     PANgram, AD) use no draft model.
+# Keep checkpoint / draft_checkpoint in sync with MODEL_PATHS / DRAFT_MODEL_PATHS in
+# sbatch/serve_and_benchmark_sweep.sbatch.
+
+targets:
+  gemma4_12b:
+    hf_id: google/gemma-4-12B-it
+    checkpoint: rstaruch/gemma4-12b-gec
+    draft_checkpoint: null
+    label: "Gemma 4 12B"
+
+  qwen3_8b:
+    hf_id: Qwen/Qwen3-8B
+    checkpoint: rstaruch/qwen3-8b-gec
+    draft_checkpoint: rstaruch/qwen3-0.6b-gec-draft   # finetuned from Qwen/Qwen3-0.6B
+    label: "Qwen 3 8B"
+
+common:
+  # No --dtype / --quantization flag is passed at serve time: models are served at
+  # their checkpoint's native precision (bf16).
+  temperature: 0
+  seed: 42
+  max_new_tokens: 5000
